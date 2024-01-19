@@ -1,0 +1,63 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int n, v[100001], s, smax, secv, secvmax, i, st, dr, x, y;
+bool first;
+
+int main()
+{
+    ifstream cin("secventa.in");
+    ofstream cout("secventa.out");
+
+    cin >> n;
+
+    for(i = 1; i <= n; i ++)
+    {
+        cin >> v[i];
+    }
+
+    for(i = 1; i <= n; i ++)
+    {
+        s = 0;
+        secv = 1;
+        st = i;
+        dr = i;
+        first = true;
+
+        while((v[i] % 2) != (v[i + 1] % 2) and i + 1 <= n)
+        {
+            if(first == true)
+            {
+                first = false;
+                st = i;
+            }
+
+            s += v[i];
+            i ++;
+            dr = i;
+            secv ++;
+        }
+
+        s += v[i];
+
+        if(secv > secvmax)
+        {
+            secvmax = secv;
+            smax = s;
+            x = st;
+            y = dr;
+        }
+        else if(secv == secvmax)
+        {
+            if(s >= smax)
+            {
+                smax = s;
+                x = st;
+                y = dr;
+            }
+        }
+    }
+
+    cout << x << ' ' << y;
+}
